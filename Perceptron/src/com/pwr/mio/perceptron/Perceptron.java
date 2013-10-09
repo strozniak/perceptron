@@ -1,135 +1,85 @@
 package com.pwr.mio.perceptron;
 
 public class Perceptron {
-	
 	private enum WeightAction {INCREASE, DECREASE };
 	
-	private final static int DEFAULT_INPUT_SIZE = 10;
 	private final int INPUT_SIZE;
-	private final double ACTIVATION_TRESHOLD = 0.12;
+	private final static int DEFAULT_INPUT_SIZE = 10;
+	private final double ACTIVATION_TRESHOLD = 0.8;
+	private final Function function;
+	
+	// weights
+	private double[] weights;
 	private final double WEIGHT_FACTOR = 0.1;
-
-	private int iteration;
-	private boolean isPerceptronWorkingProperly;
-	private boolean isBiggerThanTreshold;
-	private boolean givenOutput;
-	private double activationFunctionResult;
-	
-	private double[] input;
-	private double[] initialWeights;
-	private double[] currentWeights;
-	
+	private double functionOutput = -1;
 
 	public Perceptron() {
-		this(DEFAULT_INPUT_SIZE);
+		this(DEFAULT_INPUT_SIZE, new SigmoidFunction());
 	}
 
-	public Perceptron(int inputSize) {
+	public Perceptron(int inputSize, Function function) {
 		INPUT_SIZE = inputSize;
-		iteration = 0;
-		initDefaultWeights();
+		this.function = function;
+		initWeights();
 	}
 
-	private void initDefaultWeights() {
-		initialWeights = new double[INPUT_SIZE];
-		currentWeights = new double[INPUT_SIZE];
-		for (int i = 0; i < INPUT_SIZE ; i++) {
-			initialWeights[i] = 1;
-			currentWeights[i] = 1;
+	public int learn(double[] xVector, int correctOutput) {
+		functionOutput = function.count(xVector, weights);
+		int perceptronOutputValue =  functionOutput >= ACTIVATION_TRESHOLD ? 1 : 0;
+		boolean isPerceptronWorkingProperly = (correctOutput == perceptronOutputValue);
+		changeWeights( xVector, perceptronOutputValue, isPerceptronWorkingProperly );
+		
+		return perceptronOutputValue;
+	}
+	
+	public double[] getWeights() {
+		return weights;
+	}
+
+	private void initWeights() {
+		weights = new double[INPUT_SIZE];
+		for(int i = 0; i < INPUT_SIZE; i++ ) {
+			weights[i] = 1;
 		}
 		
 	}
 
-	public boolean learn(double[] input, boolean output) {
-		this.input = input;
-		this.givenOutput = output;
-		iteration++;
-		
-		
-		activationFunctionResult = count();
-		isBiggerThanTreshold = activationFunctionResult >= ACTIVATION_TRESHOLD;
-		isPerceptronWorkingProperly = (givenOutput == isBiggerThanTreshold);
-		
-		changeWeights(WEIGHT_FACTOR, isBiggerThanTreshold, isPerceptronWorkingProperly);
-		
-		return isPerceptronWorkingProperly;
-	}
-
-	private void changeWeights(double weightFactor,
-			boolean isBiggerThanTreshold, boolean isPerceptronWorkingProperly) {
+	private void changeWeights(	double[] input, int perceptronOutputValue, boolean isPerceptronWorkingProperly) {
 
 		if (!isPerceptronWorkingProperly) {
-			if (isBiggerThanTreshold) {
-				changeWeights(WeightAction.DECREASE);
+			if ( perceptronOutputValue == 1 ) {
+				changeWeights(WeightAction.DECREASE,input);
 			}
 			else {
-				changeWeights(WeightAction.INCREASE);
+				changeWeights(WeightAction.INCREASE, input);
 			}
 		}
 		
 	}
 
-	private void changeWeights(WeightAction currentWeightAction) {
+	private void changeWeights(WeightAction currentWeightAction, double[] xVector ) {
 		for (int i = 0 ; i < INPUT_SIZE; i++) {
-			int intXi = (int) input[i]; // made because of double comparison
+			int intXi = (int) xVector[i]; // made because of double comparison
 			if (intXi != 0) {
 				if (currentWeightAction == WeightAction.DECREASE ) {
-					currentWeights[i]  -=  currentWeights[i]*WEIGHT_FACTOR;
+					weights[i]  -=  weights[i]*WEIGHT_FACTOR;
 				} else if (currentWeightAction == WeightAction.INCREASE) {
-					currentWeights[i]  +=  currentWeights[i]*WEIGHT_FACTOR;
+					weights[i]  +=  weights[i]*WEIGHT_FACTOR;
 				}
 				
 			}
 		}
-		
 	}
 
-	private double count() {
-		double sigmaExpr = countSigma();
-		
-		return Math.exp((-1)*sigmaExpr);
-	}
-
-	private double countSigma() {
-		double sigma = 0;
-		
-		for (int i = 0; i < INPUT_SIZE; i++) {
-			sigma += currentWeights[i]*input[i];
-		}
-	
-		return sigma;
-	}
-
-	public int getOutput() {
-		return 0;
+	public int getInputSize() {
+		return INPUT_SIZE;
 	}
 	
-
-	public double[] getCurrentWeights() {
-		return currentWeights;
+	public double getACTIVATION_TRESHOLD() {
+		return ACTIVATION_TRESHOLD;
 	}
-	
-	public String printCurrentState() {
-		if (input != null )
- {
-			String report = iteration + ") ";
 
-			report += "Activation Treshold:"+"\t"+ACTIVATION_TRESHOLD+"\t";
-			report += "Activation function result: "+Double.toString(activationFunctionResult)+"\t";
-			report += "Given output: "+Boolean.toString(givenOutput)+"\t";
-			report += "X = [\t";
-			for (int i = 0; i < input.length; i++) {
-				report += input[i] + "\t";
-			}
-			report += "]\tWEIGHTS = [\t";
-			for (int i = 0; i < currentWeights.length; i++) {
-				report += currentWeights[i] + "\t";
-			}
-
-			report += "]"+"\t"+"Recognized Correctly:" +"\t"+Boolean.toString(isPerceptronWorkingProperly);
-			return report;
-		} else 
-			return "No input data";
-		
+	public double getFunctionOutput() {
+		return functionOutput;
 	}
 }
