@@ -18,9 +18,10 @@ public class App {
 		// x10 - wys chmur [km]
 	
 		double[][] input = new double[][] {	{11,10,15,75,1019,11,0,0,7,3},
-											{13,9,16,80,1011,11, 0, 0,9,0},
-											{9,8,7,93,1016,11,1,0,5,3} };
-		int[] correctOutput = { 0, 0, 1};
+											{13,9,16,80,1011,11,0,0,9,0},
+											{9,8,7,93,1016,11,1,0,5,3},
+											{6,2,1,100,1025,10,3,0,3,2} };
+		int[] correctOutput = { 0, 0, 1,1};
 		int perceptronInputSize = input[0].length;
 		Perceptron perceptron = new Perceptron( perceptronInputSize, new SigmoidFunction() );
 		
