@@ -2,7 +2,7 @@ package com.pwr.mio.perceptron;
 
 public class RaportPrinter {
 
-	public static void printRaport(Perceptron perceptron, double[][] input,
+	public static void printRaport(Neuron perceptron, double[][] input,
 			int[] correctOutput) {
 
 		if (input.length != correctOutput.length || perceptron.getInputSize() != input[0].length)
@@ -14,7 +14,7 @@ public class RaportPrinter {
 			printInput(input[i]);
 			printPerceptronWeights(perceptron);
 			printCorrectOutput(correctOutput[i]);
-			printPerceptronOutput(perceptron.learn(input[i], correctOutput[i]));
+			printPerceptronOutput(perceptron.learn(input[i]));
 			printPerceptronInnerFunctionResult(perceptron.getFunctionOutput());
 		}
 
@@ -24,7 +24,7 @@ public class RaportPrinter {
 		System.out.print("Perc. inner fn result = "+functionOutput+"\n");
 	}
 
-	private static void printPerceptronWeights(Perceptron perceptron) {
+	private static void printPerceptronWeights(Neuron perceptron) {
 		String inputText = "W = ";
 		inputText += getFormattedVector(perceptron.getWeights());
 		System.out.print(inputText);

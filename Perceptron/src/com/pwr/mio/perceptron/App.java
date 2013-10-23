@@ -23,9 +23,15 @@ public class App {
 											{6,2,1,100,1025,10,3,0,3,2} };
 		int[] correctOutput = { 0, 0, 1,1};
 		int perceptronInputSize = input[0].length;
-		Perceptron perceptron = new Perceptron( perceptronInputSize, new SigmoidFunction() );
+		Neuron perceptron = new Neuron( perceptronInputSize, new SigmoidFunction() );
 		
 		RaportPrinter.printRaport(perceptron, input, correctOutput );
+		
+		
+		// lista 2, zad1
+		
+		
+		
 	}
 
 }
