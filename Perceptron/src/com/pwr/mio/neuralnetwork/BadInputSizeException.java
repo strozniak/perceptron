@@ -1,4 +1,4 @@
-package com.pwr.mio.perceptron;
+package com.pwr.mio.neuralnetwork;
 
 public class BadInputSizeException extends RuntimeException {
 	public BadInputSizeException() {

@@ -1,8 +1,6 @@
-package com.pwr.mio.perceptron;
+package com.pwr.mio.neuralnetwork;
 
 public class Neuron {
-	private enum WeightAction {INCREASE, DECREASE };
-	
 	private final int INPUT_SIZE;
 	private double activationTreshold = 0.9;
 	
@@ -17,17 +15,29 @@ public class Neuron {
 	private final double WEIGHT_FACTOR = 0.1;
 	private double functionOutput = -1;
 	private double[] input;
+	private int perceptronOutputValue;
 
 	public Neuron(int inputSize, Function function) {
 		INPUT_SIZE = inputSize;
 		this.function = function;
 		initWeights();
 	}
-
-	public int learn(double[] xVector) {
+	
+	public void learn(int correctOutput)
+	{
+		for (int i = 0 ; i < INPUT_SIZE; i++) {
+			int intXi = (int) input[i]; // made because of double comparison
+			if (intXi != 0) {
+				weights[i]  +=  WEIGHT_FACTOR*(correctOutput-perceptronOutputValue)*input[i];
+				
+			}
+		}
+	}
+	
+	public int feed(double[] xVector) {
 		input = xVector;
 		functionOutput = function.count(input, weights);
-		int perceptronOutputValue =  functionOutput >= activationTreshold ? 1 : 0;
+		perceptronOutputValue = functionOutput >= activationTreshold ? 1 : 0;
 		
 		return perceptronOutputValue;
 	}
@@ -42,42 +52,17 @@ public class Neuron {
 			weights[i] = 1;
 		}
 	}
-	
-	public void inreaseWeights()
-	{
-		changeWeights(WeightAction.INCREASE);
-	}
-
-	
-	public void decreaseWeights()
-	{
-		changeWeights(WeightAction.DECREASE);
-	}
-	
-
-	private void changeWeights(WeightAction currentWeightAction ) {
-		for (int i = 0 ; i < INPUT_SIZE; i++) {
-			int intXi = (int) input[i]; // made because of double comparison
-			if (intXi != 0) {
-				if (currentWeightAction == WeightAction.DECREASE ) {
-					weights[i]  -=  weights[i]*WEIGHT_FACTOR;
-				} else if (currentWeightAction == WeightAction.INCREASE) {
-					weights[i]  +=  weights[i]*WEIGHT_FACTOR;
-				}
-				
-			}
-		}
-	}
 
 	public int getInputSize() {
 		return INPUT_SIZE;
 	}
 	
-	public double getACTIVATION_TRESHOLD() {
+	public double getActivationTreshold() {
 		return activationTreshold;
 	}
 
 	public double getFunctionOutput() {
 		return functionOutput;
 	}
+	
 }

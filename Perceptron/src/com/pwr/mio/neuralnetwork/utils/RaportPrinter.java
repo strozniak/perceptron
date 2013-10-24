@@ -1,4 +1,7 @@
-package com.pwr.mio.perceptron;
+package com.pwr.mio.neuralnetwork.utils;
+
+import com.pwr.mio.neuralnetwork.BadInputSizeException;
+import com.pwr.mio.neuralnetwork.Neuron;
 
 public class RaportPrinter {
 
@@ -8,13 +11,13 @@ public class RaportPrinter {
 		if (input.length != correctOutput.length || perceptron.getInputSize() != input[0].length)
 			throw new BadInputSizeException();
 		
-		printHeader(perceptron.getACTIVATION_TRESHOLD());
+		printHeader(perceptron.getActivationTreshold());
 		
 		for (int i = 0; i < input.length; i++) {
 			printInput(input[i]);
 			printPerceptronWeights(perceptron);
 			printCorrectOutput(correctOutput[i]);
-			printPerceptronOutput(perceptron.learn(input[i]));
+			printPerceptronOutput(perceptron.feed(input[i]));
 			printPerceptronInnerFunctionResult(perceptron.getFunctionOutput());
 		}
 
