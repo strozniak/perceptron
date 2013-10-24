@@ -1,23 +1,23 @@
 package com.pwr.mio.neuralnetwork;
 
+import com.pwr.mio.neuralnetwork.math.Function;
+
 public class Neuron {
+	private final String NAME;
 	private final int INPUT_SIZE;
 	private double activationTreshold = 0.9;
-	
-	public void seActivationTreshold(double treshold) {
-		activationTreshold = treshold;
-	}
-
 	private final Function function;
 	
 	// weights
 	private double[] weights;
 	private final double WEIGHT_FACTOR = 0.1;
 	private double functionOutput = -1;
-	private double[] input;
+	private double[] input = {-1};
 	private int perceptronOutputValue;
+	private int correctOutput = -1;
 
-	public Neuron(int inputSize, Function function) {
+	public Neuron(String neuronName, int inputSize, Function function) {
+		NAME = neuronName;
 		INPUT_SIZE = inputSize;
 		this.function = function;
 		initWeights();
@@ -25,6 +25,7 @@ public class Neuron {
 	
 	public void learn(int correctOutput)
 	{
+		this.correctOutput = correctOutput;
 		for (int i = 0 ; i < INPUT_SIZE; i++) {
 			int intXi = (int) input[i]; // made because of double comparison
 			if (intXi != 0) {
@@ -53,6 +54,18 @@ public class Neuron {
 		}
 	}
 
+	public void seActivationTreshold(double treshold) {
+		activationTreshold = treshold;
+	}
+
+	public String getNAME() {
+		return NAME;
+	}
+
+	public double[] getInput() {
+		return input;
+	}
+	
 	public int getInputSize() {
 		return INPUT_SIZE;
 	}
@@ -63,6 +76,10 @@ public class Neuron {
 
 	public double getFunctionOutput() {
 		return functionOutput;
+	}
+
+	public int getCorrectOutput() {
+		return correctOutput;
 	}
 	
 }

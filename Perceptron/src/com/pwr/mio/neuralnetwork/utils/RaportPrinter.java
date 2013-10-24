@@ -1,65 +1,53 @@
 package com.pwr.mio.neuralnetwork.utils;
 
-import com.pwr.mio.neuralnetwork.BadInputSizeException;
 import com.pwr.mio.neuralnetwork.Neuron;
 
 public class RaportPrinter {
 
-	public static void printRaport(Neuron perceptron, double[][] input,
-			int[] correctOutput) {
-
-		if (input.length != correctOutput.length || perceptron.getInputSize() != input[0].length)
-			throw new BadInputSizeException();
-		
-		printHeader(perceptron.getActivationTreshold());
-		
-		for (int i = 0; i < input.length; i++) {
-			printInput(input[i]);
-			printPerceptronWeights(perceptron);
-			printCorrectOutput(correctOutput[i]);
-			printPerceptronOutput(perceptron.feed(input[i]));
-			printPerceptronInnerFunctionResult(perceptron.getFunctionOutput());
-		}
+	public static void printRaport(Neuron neuron) {
+		String line = printNeuronName(neuron) + "\t";
+		line += printWeights(neuron) + "\t";
+		line += printInput(neuron) + "\t";
+		line += printOutput(neuron) + "\t";
+		line += printCorrectOutput(neuron) + "\t";
+		System.out.println(line);
 
 	}
 	
-	private static void printPerceptronInnerFunctionResult(double functionOutput) {
-		System.out.print("Perc. inner fn result = "+functionOutput+"\n");
-	}
-
-	private static void printPerceptronWeights(Neuron perceptron) {
-		String inputText = "W = ";
-		inputText += getFormattedVector(perceptron.getWeights());
-		System.out.print(inputText);
-	}
-
-	private static void printHeader(double treshold) {
-		System.out.println("Per. treshold = "+treshold);
+	private static String printWeights(Neuron neuron) {
+		String formattedWeights = "W = "; 
+		double[] weights = neuron.getWeights();
+		formattedWeights += printVector(weights);
 		
-	}
-
-	private static void printInput(double[] input) {
-		String inputText = "X = ";
-		inputText += getFormattedVector(input);
-		System.out.print(inputText);
-	}
-
-	private static void printPerceptronOutput(int i) {
-		System.out.print("Perc. output = "+"\t"+i+"\t");
+		return formattedWeights;
 	}
 	
-	private static void printCorrectOutput(int i) {
-		System.out.print("Correct output = "+i+"\t");
+
+	private static String printNeuronName(Neuron neuron) {
+		return neuron.getNAME();
 		
 	}
 
-	private static String getFormattedVector(double[] input) {
-		String inputText = "[\t";
-		for (int i = 0; i < input.length; i++) {
-			inputText += input[i] + "\t";
-		}
-		inputText += "]"+"\t";
-		return inputText;
+	private static String printInput(Neuron neuron) {
+		return "X = " + printVector(neuron.getInput());
+		
 	}
 
+	private static String printOutput(Neuron neuron) {
+		return "Y = "+neuron.getFunctionOutput();
+	}
+
+	private static String printCorrectOutput(Neuron neuron) {
+		return "Y\' = " + neuron.getCorrectOutput();
+		
+	}
+
+	private static String printVector(double[] vector) {
+		String formattedVector = "[\t";
+		for(int i = 0; i < vector.length; i++) {
+			formattedVector += vector[i] +"\t";
+		}
+		formattedVector += "]";
+		return formattedVector;
+	}
 }

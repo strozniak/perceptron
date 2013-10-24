@@ -1,4 +1,6 @@
-package com.pwr.mio.neuralnetwork;
+package com.pwr.mio.neuralnetwork.math;
+
+import com.pwr.mio.neuralnetwork.BadInputSizeException;
 
 public class SigmoidFunction implements Function {
 

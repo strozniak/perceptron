@@ -1,4 +1,4 @@
-package com.pwr.mio.neuralnetwork;
+package com.pwr.mio.neuralnetwork.math;
 
 public interface Function {
 
