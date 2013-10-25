@@ -81,5 +81,8 @@ public class Neuron {
 	public int getCorrectOutput() {
 		return correctOutput;
 	}
-	
+
+	public int getPerceptronOutputValue() {
+		return perceptronOutputValue;
+	}
 }

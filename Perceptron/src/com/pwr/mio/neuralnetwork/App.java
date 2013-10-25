@@ -35,14 +35,25 @@ public class App {
 		NeuralNetwork oneLayerNetwork = new NeuralNetwork(layers);
 
 		List<WeatherData> dataFromCSVFile = WeatherDataTransformer
-				.mapCSVToWeatherData("resources/input.csv");
+				.mapCSVToWeatherData("resources/small.csv");
 
 		Random rnd = new Random();
 		
-		for (int i = 0 ; i < 300; i++) {
+		for (int i = 0 ; i < 100; i++) {
 			int randomValue = rnd.nextInt(dataFromCSVFile.size());
 			NeuralNetworkFeeder feeder = new NeuralNetworkFeeder(dataFromCSVFile.get(randomValue));
 			oneLayerNetwork.learnLayer(feeder.getInput(), feeder.getCorrectOutput());
 		}
+	
+		System.out.println("#############################################################################");
+		System.out.println("szukam zle sklasyfikowanych par");
+		System.out.println("#############################################################################");
+
+		for (int i = 0 ; i < 10; i++) {
+//			int randomValue = rnd.nextInt(dataFromCSVFile.size());
+			NeuralNetworkFeeder feeder = new NeuralNetworkFeeder(dataFromCSVFile.get(i));
+			oneLayerNetwork.learnLayer(feeder.getInput(), feeder.getCorrectOutput());
+		}
+		
 	}
 }

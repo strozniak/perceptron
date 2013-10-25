@@ -34,7 +34,7 @@ public class RaportPrinter {
 	}
 
 	private static String printOutput(Neuron neuron) {
-		return "Y = "+neuron.getFunctionOutput();
+		return "Y = "+neuron.getPerceptronOutputValue();
 	}
 
 	private static String printCorrectOutput(Neuron neuron) {
