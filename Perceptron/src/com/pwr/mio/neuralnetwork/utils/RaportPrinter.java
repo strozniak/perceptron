@@ -1,6 +1,6 @@
 package com.pwr.mio.neuralnetwork.utils;
 
-import com.pwr.mio.neuralnetwork.Neuron;
+import com.pwr.mio.neuralnetwork.model.neuralnetwork.Neuron;
 
 public class RaportPrinter {
 

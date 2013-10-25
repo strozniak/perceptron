@@ -1,4 +1,4 @@
-package com.pwr.mio.neuralnetwork;
+package com.pwr.mio.neuralnetwork.model.neuralnetwork;
 
 import java.util.List;
 

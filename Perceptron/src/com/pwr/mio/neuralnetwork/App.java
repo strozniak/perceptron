@@ -6,8 +6,12 @@ import java.util.Random;
 
 import com.pwr.mio.neuralnetwork.math.Function;
 import com.pwr.mio.neuralnetwork.math.SigmoidFunction;
-import com.pwr.mio.neuralnetwork.model.WeatherData;
-import com.pwr.mio.neuralnetwork.model.WeatherDataTransformer;
+import com.pwr.mio.neuralnetwork.model.neuralnetwork.NeuralNetwork;
+import com.pwr.mio.neuralnetwork.model.neuralnetwork.Neuron;
+import com.pwr.mio.neuralnetwork.model.neuralnetwork.NeuronsLayer;
+import com.pwr.mio.neuralnetwork.model.weather.WeatherData;
+import com.pwr.mio.neuralnetwork.model.weather.WeatherDataTransformer;
+import com.pwr.mio.neuralnetwork.utils.NeuralNetworkFeeder;
 
 public class App {
 

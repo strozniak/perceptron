@@ -1,4 +1,4 @@
-package com.pwr.mio.neuralnetwork.model;
+package com.pwr.mio.neuralnetwork.model.weather;
 
 import java.util.LinkedList;
 import java.util.List;

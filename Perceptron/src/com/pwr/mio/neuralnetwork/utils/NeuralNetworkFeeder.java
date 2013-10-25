@@ -1,6 +1,6 @@
-package com.pwr.mio.neuralnetwork;
+package com.pwr.mio.neuralnetwork.utils;
 
-import com.pwr.mio.neuralnetwork.model.WeatherData;
+import com.pwr.mio.neuralnetwork.model.weather.WeatherData;
 
 public class NeuralNetworkFeeder {
 	

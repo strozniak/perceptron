@@ -1,4 +1,4 @@
-package com.pwr.mio.neuralnetwork.model;
+package com.pwr.mio.neuralnetwork.model.weather;
 
 public class WeatherData {
 	private String time;
