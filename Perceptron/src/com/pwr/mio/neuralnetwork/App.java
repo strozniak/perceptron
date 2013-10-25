@@ -2,6 +2,7 @@ package com.pwr.mio.neuralnetwork;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import com.pwr.mio.neuralnetwork.math.Function;
 import com.pwr.mio.neuralnetwork.math.SigmoidFunction;
@@ -32,11 +33,12 @@ public class App {
 		List<WeatherData> dataFromCSVFile = WeatherDataTransformer
 				.mapCSVToWeatherData("resources/input.csv");
 
-		for (int i = 0 ; i < 10; i++) {
-			NeuralNetworkFeeder feeder = new NeuralNetworkFeeder(dataFromCSVFile.get(i));
+		Random rnd = new Random();
+		
+		for (int i = 0 ; i < 300; i++) {
+			int randomValue = rnd.nextInt(dataFromCSVFile.size());
+			NeuralNetworkFeeder feeder = new NeuralNetworkFeeder(dataFromCSVFile.get(randomValue));
 			oneLayerNetwork.learnLayer(feeder.getInput(), feeder.getCorrectOutput());
 		}
-
 	}
-
 }
