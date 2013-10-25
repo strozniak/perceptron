@@ -13,7 +13,7 @@ import com.pwr.mio.neuralnetwork.model.weather.WeatherData;
 import com.pwr.mio.neuralnetwork.model.weather.WeatherDataTransformer;
 import com.pwr.mio.neuralnetwork.utils.NeuralNetworkFeeder;
 
-public class App {
+public class Zad1 {
 
 	public static void main(String[] args) {
 		
@@ -21,9 +21,10 @@ public class App {
 		Function sigmoidFunction = new SigmoidFunction();
 		List<Neuron> neurons = new LinkedList<Neuron>();
 		
-		Neuron isSunnyClassNeuron = new Neuron("sunny", 6, sigmoidFunction);
-		Neuron isCloudyClassNeuron = new Neuron("cloudy",6, sigmoidFunction);
-		Neuron isSnowingClassNeuron = new Neuron("snowing",6, sigmoidFunction);
+		// sa trzy wykluczajace sie klasy: czy dane sa z 1. sierpnia 2. pazdziernika 3. stycznia
+		Neuron isSunnyClassNeuron = new Neuron("isAugust", 6, sigmoidFunction);
+		Neuron isCloudyClassNeuron = new Neuron("isOctober",6, sigmoidFunction);
+		Neuron isSnowingClassNeuron = new Neuron("isJanuary",6, sigmoidFunction);
 		
 		neurons.add(isSunnyClassNeuron);
 		neurons.add(isCloudyClassNeuron);
@@ -50,7 +51,7 @@ public class App {
 		System.out.println("#############################################################################");
 
 		for (int i = 0 ; i < 10; i++) {
-//			int randomValue = rnd.nextInt(dataFromCSVFile.size());
+			int randomValue = rnd.nextInt(dataFromCSVFile.size());
 			NeuralNetworkFeeder feeder = new NeuralNetworkFeeder(dataFromCSVFile.get(i));
 			oneLayerNetwork.learnLayer(feeder.getInput(), feeder.getCorrectOutput());
 		}
