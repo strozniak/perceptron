@@ -13,7 +13,7 @@ import com.pwr.mio.neuralnetwork.model.weather.WeatherData;
 import com.pwr.mio.neuralnetwork.model.weather.WeatherDataTransformer;
 import com.pwr.mio.neuralnetwork.utils.NeuralNetworkFeeder;
 
-public class Zad1 {
+public class Zad2 {
 
 	public static void main(String[] args) {
 		
